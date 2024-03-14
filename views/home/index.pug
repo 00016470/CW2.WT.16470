@@ -41,7 +41,7 @@ script.
             console.log(error);
           });
 
-          // Use event delegation for delete buttons
+          // Event delegation for delete buttons
           document.addEventListener('click', function(event) {
             if (event.target && event.target.classList.contains('btn-outline-danger')) {
               const eventId = event.target.getAttribute('data-id');

@@ -1,15 +1,19 @@
-// import specific service class
+// Require the event service module from the services directory
 const event_service = require('../../../services/event')
 
-// mention the service's needed actions (methods)
+
 const event_controller = {
     getAll(req, res) {
+         // Call the event_service.getAll() method to retrieve all events
+    // Respond with the retrieved events data in JSON format
         res.json(event_service.getAll())
     },
+    // create new event
     create(req, res) {
         res.status(201).json(
         event_service.create(req, res))
     },
+    //update existing event by id
     update(req, res) {
         const event = event_service.update(req.params.id, req.body)
         
@@ -19,6 +23,7 @@ const event_controller = {
             res.status(404).send('Event not found')
         }
     },
+    //delete event by id 
     delete(req, res) {
         const event = event_service.getById(req.params.id)
  

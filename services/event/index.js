@@ -1,8 +1,8 @@
 const fs = require('fs')
-// access global mock db file
+// access global mock db file from app.js
 const events = require(global.mock_db)
 
-// write service method implementations
+//  implement the CRUD services
 const event_service = {
     getAll() {
         return events

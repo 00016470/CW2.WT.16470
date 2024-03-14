@@ -1,7 +1,7 @@
 const { body, param } = require('express-validator');
 const event_service = require('../../services/event')
 
-
+//validation for labels, empty labels cannot be saved
 const addEventValidation = () => {
   return [
     body('eventName')
