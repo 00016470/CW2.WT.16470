@@ -1,5 +1,5 @@
 // import specific service class
-const event_service = require('../../../services/event/')
+const event_service = require('../../../services/event')
 
 // mention the service's needed actions (methods)
 const event_controller = {
@@ -9,6 +9,15 @@ const event_controller = {
     create(req, res) {
         res.status(201).json(
         event_service.create(req, res))
+    },
+    update(req, res) {
+        const event = event_service.update(req.params.id, req.body)
+        
+        if (event) {
+            res.json(event)
+        } else {
+            res.status(404).send('Event not found')
+        }
     },
     delete(req, res) {
         const event = event_service.getById(req.params.id)

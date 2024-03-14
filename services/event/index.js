@@ -24,6 +24,19 @@ const event_service = {
         writeToFile(events)
         return new_event
     },
+    update(id, updateData){
+        const eventIndex = events.findIndex(t => t.id == id)
+        
+        if (eventIndex === -1) {
+            return null
+        }
+        
+        events[eventIndex].event = { ...events[eventIndex].event, ...updateData }
+        
+        writeToFile(events)
+        
+        return events[eventIndex]
+        },
     delete(id) {
         const index = events.findIndex(u => u.id == id)
         events.splice(index, 1) 
@@ -35,14 +48,14 @@ const event_service = {
     // create function for overwriting the db file updated db content
 let writeToFile = async (users) => {
     await 
-    fs.writeFileSync(
-    global.mock_db,
-    JSON.stringify(
-    users, null, 4
-    ),
-    'utf8'
+        fs.writeFileSync(
+        global.mock_db,
+        JSON.stringify(
+            users, null, 4
+        ),
+        'utf8'
     )
-    }
+}
     
     // generate random id inspired by uuid
 let genRandId = (count) =>{
