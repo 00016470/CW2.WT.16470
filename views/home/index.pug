@@ -11,19 +11,28 @@ body
             th(scope="col") Venue
             th(scope="col") Actions
         tbody
-        tr
-            td 1
-            td WIUT Careers
-            td 2024-03-12 11:00
-            td Venue
-            td
-              button.btn.btn-outline-primary Edit
-              button.btn.btn-outline-danger Delete
-        tr
-            td 2
-            td Movie Night
-            td 2024-03-08 15:00
-            td Cinematic
-            td
-              button.btn.btn-outline-primary Edit
-              button.btn.btn-outline-danger Delete
+script.
+      document.addEventListener('DOMContentLoaded', function() {
+        axios.get('/api/event')
+          .then(function(response) {
+            const events = response.data;
+            const tableBody = document.querySelector('table tbody');
+            events.forEach(t => {
+              const row = document.createElement('tr');
+              const event = t.event
+              row.innerHTML = `
+                <td>${t.id}</td>
+                <td>${event.eventName}</td>
+                <td>${event.eventDateTime}</td>
+                <td>${event.venue}</td>
+                <td>
+                  <button class="btn btn-outline-primary">Edit</button>
+                  <button class="btn btn-outline-danger">Delete</button>
+                </td>`;
+                tableBody.appendChild(row);
+                });
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
