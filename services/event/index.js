@@ -7,6 +7,9 @@ const event_service = {
     getAll() {
         return events
     },
+    getById(id) {
+        return events.find(t => t.id == id)
+    }, 
     create(req, res) {
         let new_id = genRandId(4)
 
@@ -20,8 +23,14 @@ const event_service = {
         events.push(new_event)
         writeToFile(events)
         return new_event
+    },
+    delete(id) {
+        const index = events.findIndex(u => u.id == id)
+        events.splice(index, 1) 
+        writeToFile(events)
     }
 }
+
     
     // create function for overwriting the db file updated db content
 let writeToFile = async (users) => {

@@ -1,4 +1,6 @@
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
+const event_service = require('../../services/event')
+
 
 const addEventValidation = () => {
   return [
@@ -14,6 +16,18 @@ const addEventValidation = () => {
   ];
 };
 
+const deleteEventValidation = () => {
+      return [
+         param('id').custom(async (id) => {
+           const exists = await event_service.getById(id);
+           if (!exists) {
+             throw new Error('Ticket not found');
+           }
+         })
+      ];
+    };
+
 module.exports = {
-    addEventValidation
+    addEventValidation,
+    deleteEventValidation
 };
